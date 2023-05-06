@@ -205,7 +205,7 @@
     position: absolute;
     width: 25px;
     height: 25px;
-    left: 7px;
+    left: 2%;
 }
 
 .ponyacha_box_body_table_tbody_td_checkbox_2 {
@@ -213,7 +213,7 @@
     position: absolute;
     width: 25px;
     height: 25px;
-    left: 138px;
+    left: 34%;
 }
 
 .ponyacha_box_body_table_tbody_td_checkbox_3 {
@@ -221,9 +221,5 @@
     position: absolute;
     width: 25px;
     height: 25px;
-    left: 269px;
-}
-
-body {
-    background-color: black;
+    left: 67%;
 }
