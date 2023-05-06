@@ -2,7 +2,7 @@
 
 My Little Captcha.
 
-Online Test: [https://jackiewaltryan.github.io/ponyacha/ponyacha.html](https://jackiewaltryan.github.io/ponyacha/ponyacha.html)
+Online Test: [index.html](https://jackiewaltryan.github.io/ponyacha/index.html)
 
 ### License
 
