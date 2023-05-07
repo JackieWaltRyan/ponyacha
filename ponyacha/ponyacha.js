@@ -316,7 +316,7 @@ function ponyacha_confirm() {
                 ponyacha.addEventListener("click", ponyacha_start);
             }
 
-            setTimeout(function () {
+            setTimeout(() => {
                 let ponyacha_box = document.getElementById("ponyacha_box");
                 ponyacha_box.remove();
 
@@ -347,7 +347,7 @@ function ponyacha_hide() {
             ponyacha_checkbox_logo.style.display = "inline-block";
         }
 
-        setTimeout(function () {
+        setTimeout(() => {
             let ponyacha = document.getElementById("ponyacha");
             ponyacha.addEventListener("click", ponyacha_start);
         }, 100);
