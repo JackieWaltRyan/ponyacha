@@ -435,7 +435,7 @@ export function start() {
                                 class: "ponyacha_box_body_table_td"
                             }, (el) => {
                                 let randCat = ALL_PONY[Math.floor(Math.random() * ALL_PONY.length)];
-                                let randImage = randCat[3][Math.floor(Math.random() * randCat.length)];
+                                let randImage = randCat[3][Math.floor(Math.random() * randCat[3].length)];
 
                                 if (randCat[0] === randPony[0]) {
                                     this.root.chekList.push(randImage);
