@@ -535,105 +535,103 @@ export function start() {
     }
 }
 
-export class poNYACHA {
-    constructor(data) {
-        this.root = {
-            selector: data.selector,
-            token: data.token,
-            chekList: [],
-            selectList: [],
-            opeen: false
+export function init(data) {
+    this.root = {
+        selector: data.selector,
+        token: data.token,
+        chekList: [],
+        selectList: [],
+        opeen: false
+    };
+
+    if ((this.root.ponyacha = document.querySelector(this.root.selector))) {
+        this.root.ponyacha.classList.add("ponyacha");
+
+        this.root.ponyacha.addEventListener("contextmenu", (event) => {
+            event.preventDefault();
+
+            return false;
+        });
+
+        this.root.ponyacha.addEventListener("click", () => {
+            start.call(this);
+        });
+
+        this.root.checkbox = {
+            root: createElement("div", {
+                class: "ponyacha_checkbox"
+            }),
+
+            filter: createElement("span", {
+                class: "ponyacha_checkbox_filter"
+            }),
+
+            logo: createElement("img", {
+                class: "ponyacha_checkbox_logo",
+                src: checkbox
+            }),
+
+            spinner: createElement("img", {
+                class: "ponyacha_checkbox_spinner",
+                src: spinner
+            }),
+
+            cheeck: createElement("img", {
+                class: "ponyacha_checkbox_check",
+                src: checkmark
+            }),
+
+            text: {
+                root: createElement("div", {
+                    class: "ponyacha_checkbox_text"
+                }),
+
+                pony: createElement("div", {
+                    class: "ponyacha_checkbox_text_pony"
+                }, (el) => {
+                    el.innerText = "Я поняшка";
+                }),
+
+                error: createElement("div", {
+                    class: "ponyacha_checkbox_text_error"
+                }, (el) => {
+                    el.innerText = "Проверка не пройдена!";
+                })
+            }
         };
 
-        if ((this.root.ponyacha = document.querySelector(this.root.selector))) {
-            this.root.ponyacha.classList.add("ponyacha");
+        this.root.logo = {
+            root: createElement("div", {
+                class: "ponyacha_logo"
+            }),
 
-            this.root.ponyacha.addEventListener("contextmenu", (event) => {
-                event.preventDefault();
+            icon: createElement("img", {
+                class: "ponyacha_logo_icon",
+                src: roku_chan
+            }),
 
-                return false;
-            });
+            text: createElement("div", {
+                class: "ponyacha_logo_text"
+            }, (el) => {
+                el.innerText = "poNYACHA";
+            })
+        };
 
-            this.root.ponyacha.addEventListener("click", () => {
-                start.call(this);
-            });
+        this.root.checkbox.text.root.appendChild(this.root.checkbox.text.pony);
+        this.root.checkbox.text.root.appendChild(this.root.checkbox.text.error);
 
-            this.root.checkbox = {
-                root: createElement("div", {
-                    class: "ponyacha_checkbox"
-                }),
+        this.root.checkbox.root.appendChild(this.root.checkbox.filter);
+        this.root.checkbox.root.appendChild(this.root.checkbox.logo);
+        this.root.checkbox.root.appendChild(this.root.checkbox.spinner);
+        this.root.checkbox.root.appendChild(this.root.checkbox.cheeck);
+        this.root.checkbox.root.appendChild(this.root.checkbox.text.root);
 
-                filter: createElement("span", {
-                    class: "ponyacha_checkbox_filter"
-                }),
+        this.root.logo.root.appendChild(this.root.logo.icon);
+        this.root.logo.root.appendChild(this.root.logo.text);
 
-                logo: createElement("img", {
-                    class: "ponyacha_checkbox_logo",
-                    src: checkbox
-                }),
-
-                spinner: createElement("img", {
-                    class: "ponyacha_checkbox_spinner",
-                    src: spinner
-                }),
-
-                cheeck: createElement("img", {
-                    class: "ponyacha_checkbox_check",
-                    src: checkmark
-                }),
-
-                text: {
-                    root: createElement("div", {
-                        class: "ponyacha_checkbox_text"
-                    }),
-
-                    pony: createElement("div", {
-                        class: "ponyacha_checkbox_text_pony"
-                    }, (el) => {
-                        el.innerText = "Я поняшка";
-                    }),
-
-                    error: createElement("div", {
-                        class: "ponyacha_checkbox_text_error"
-                    }, (el) => {
-                        el.innerText = "Проверка не пройдена!";
-                    })
-                }
-            };
-
-            this.root.logo = {
-                root: createElement("div", {
-                    class: "ponyacha_logo"
-                }),
-
-                icon: createElement("img", {
-                    class: "ponyacha_logo_icon",
-                    src: roku_chan
-                }),
-
-                text: createElement("div", {
-                    class: "ponyacha_logo_text"
-                }, (el) => {
-                    el.innerText = "poNYACHA";
-                })
-            };
-
-            this.root.checkbox.text.root.appendChild(this.root.checkbox.text.pony);
-            this.root.checkbox.text.root.appendChild(this.root.checkbox.text.error);
-
-            this.root.checkbox.root.appendChild(this.root.checkbox.filter);
-            this.root.checkbox.root.appendChild(this.root.checkbox.logo);
-            this.root.checkbox.root.appendChild(this.root.checkbox.spinner);
-            this.root.checkbox.root.appendChild(this.root.checkbox.cheeck);
-            this.root.checkbox.root.appendChild(this.root.checkbox.text.root);
-
-            this.root.logo.root.appendChild(this.root.logo.icon);
-            this.root.logo.root.appendChild(this.root.logo.text);
-
-            this.root.ponyacha.appendChild(this.root.checkbox.root);
-            this.root.ponyacha.appendChild(this.root.logo.root);
-        } else {
-            alert("Не удается найти" + this.root.selector + "элемент.");
-        }
+        this.root.ponyacha.appendChild(this.root.checkbox.root);
+        this.root.ponyacha.appendChild(this.root.logo.root);
+    } else {
+        alert("Не удается найти" + this.root.selector + "элемент.");
     }
 }
