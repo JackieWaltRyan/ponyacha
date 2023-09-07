@@ -535,7 +535,7 @@ export function start() {
     }
 }
 
-export default class {
+export class poNYACHA {
     constructor(data) {
         this.root = {
             selector: data.selector,

@@ -6,14 +6,10 @@ module.exports = {
         rules: [
             {
                 test: /\.(scss)$/i,
-                use: [
-                    "style-loader",
-                    "css-loader",
-                    "sass-loader"
-                ]
+                use: ["style-loader", "css-loader", "sass-loader"]
             }, {
                 test: /\.(webp)$/i,
-                loader: "url-loader"
+                use: ["url-loader"]
             }
         ]
     },

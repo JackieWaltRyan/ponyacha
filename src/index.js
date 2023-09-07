@@ -1,3 +1,3 @@
-let poNYACHA = require("./ponyacha.js").default;
+let poNYACHA = require("./ponyacha").poNYACHA;
 
 module.exports = poNYACHA;
