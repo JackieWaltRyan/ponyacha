@@ -511,7 +511,8 @@ export function init(data) {
     this.root = {
         chekList: [],
         selectList: [],
-        openTrigger: false
+        openTrigger: false,
+        data: {}
     };
 
     window.addEventListener("ponyacha", (event) => {
@@ -560,11 +561,22 @@ export function init(data) {
         } else {
             this.gui.ponyacha.checkbox.spinner.style.display = "none";
 
-            if (JSON.stringify(this.root.chekList.sort()) === JSON.stringify(this.root.selectList.sort())) {
+            if (this.data.api || (JSON.stringify(this.root.chekList.sort()) === JSON.stringify(this.root.selectList.sort()))) {
                 this.gui.ponyacha.checkbox.cheeck.style.display = "inline-block";
                 this.gui.ponyacha.checkbox.text.pony.style.color = "green";
 
-                this.gui.ponyacha.label.input.value = sha256(this.data.token).toString();
+                if (this.data.api) {
+                    let response = {
+                        token: this.root.data.token,
+                        selectList: this.root.selectList
+                    };
+                    
+                    this.gui.ponyacha.label.input.value = JSON.stringify(response);
+                } else {
+                    if (this.data.token) {
+                        this.gui.ponyacha.label.input.value = sha256(this.data.token).toString();
+                    }
+                }
 
                 this.gui.ponyacha.root.style.cursor = "default";
                 this.gui.ponyacha.root.style.pointerEvents = "none";
@@ -621,9 +633,16 @@ export function start() {
 
         this.gui.ponyacha.checkbox.text.pony.style.display = "inline-block";
         this.gui.ponyacha.checkbox.spinner.style.display = "inline-block";
+
+        if (this.data.api) {
+            loadApi.call(this);
+            
+            randPony = this.root.data;
+        }
+        
         this.gui.ponyacha.box.root.style.display = "block";
         this.gui.ponyacha.box_hide.style.display = "block";
-
+        
         this.gui.ponyacha.box.header.root.style.backgroundColor = randPony.color;
         this.gui.ponyacha.box.header.description.strong.innerText = randPony.name;
         this.gui.ponyacha.box.header.image.src = randPony.image;
@@ -646,6 +665,10 @@ export function start() {
                             }, (el) => {
                                 let randCat = ALL_PONY[Math.floor(Math.random() * ALL_PONY.length)];
                                 let randImage = randCat.images[Math.floor(Math.random() * randCat.images.length)];
+
+                                if (this.data.api) {
+                                    randImage = this.root.data.images[(i * ii) - 1];
+                                }
 
                                 if (randCat.name === randPony.name) {
                                     this.root.chekList.push(randImage);
@@ -707,4 +730,26 @@ export function start() {
             this.gui.ponyacha.box.root.style.left = ((scrollWidth - this.gui.ponyacha.box.root.offsetWidth - 1).toString() + "px");
         }
     }
+}
+
+export function loadApi() {
+    let xhr = new XMLHttpRequest();
+            
+    xhr.open("GET", this.data.api, false);
+
+    xhr.addEventListener("load", () => {
+        if (xhr.status === 200) {
+            this.root.data = JSON.parse(xhr.responseText);
+        } else {
+            setTimeout(() => {
+                loadApi.call(this);
+            }, 1000);
+        }
+    });
+
+    xhr.addEventListener("error", () => {
+        setTimeout(() => {
+            loadApi.call(this);
+        }, 1000);
+    });
 }
