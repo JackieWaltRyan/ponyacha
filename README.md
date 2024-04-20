@@ -1,6 +1,6 @@
 # ponyacha
 
-My Little Captcha.
+My Little Captcha for the site "[ТО "Магия Дружбы"](https://bronyru.info)".
 
 Online Test: [dist/index.html](https://jackiewaltryan.github.io/ponyacha/dist/index.html)
 
