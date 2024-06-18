@@ -495,480 +495,500 @@ let ALL_PONY = [
 
 export function createElement(tag, params = {}, actions = () => {
 }) {
-    let el = document.createElement(tag);
+    try {
+        let el = document.createElement(tag);
 
-    for (let name in params) {
-        try {
-            el.setAttribute(name, params[name]);
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-    actions(el);
-
-    return el;
-}
-
-export function gui(data) {
-    this.data = data;
-    this.gui = {};
-
-    if ((this.gui.root = document.querySelector(this.data.selector))) {
-        this.gui.ponyacha = {
-            root: createElement("div", {
-                class: "ponyacha"
-            }, (el) => {
-                this.gui.root.appendChild(el);
-            }),
-
-            checkbox: {
-                root: createElement("div", {
-                    class: "ponyacha_checkbox"
-                }),
-
-                filter: createElement("span", {
-                    class: "ponyacha_checkbox_filter"
-                }),
-
-                logo: createElement("img", {
-                    class: "ponyacha_checkbox_logo",
-                    src: checkbox
-                }),
-
-                spinner: createElement("img", {
-                    class: "ponyacha_checkbox_spinner",
-                    src: spinner
-                }),
-
-                cheeck: createElement("img", {
-                    class: "ponyacha_checkbox_check",
-                    src: checkmark
-                }),
-
-                text: {
-                    root: createElement("div", {
-                        class: "ponyacha_checkbox_text"
-                    }),
-
-                    pony: createElement("div", {
-                        class: "ponyacha_checkbox_text_pony"
-                    }, (el) => {
-                        el.innerText = "Я поняшка";
-                    }),
-
-                    error: createElement("div", {
-                        class: "ponyacha_checkbox_text_error"
-                    }, (el) => {
-                        el.innerText = "Проверка не пройдена!";
-                    })
-                }
-            },
-
-            logo: {
-                root: createElement("div", {
-                    class: "ponyacha_logo"
-                }),
-
-                icon: createElement("img", {
-                    class: "ponyacha_logo_icon",
-                    src: roku_chan
-                }),
-
-                text: createElement("div", {
-                    class: "ponyacha_logo_text"
-                }, (el) => {
-                    el.appendChild(createElement("a", {
-                        class: "ponyacha_logo_text",
-                        href: "https://github.com/JackieWaltRyan/ponyacha",
-                        target: "_blank"
-                    }, (el) => {
-                        el.innerText = "poNYACHA";
-                    }));
-                })
-            },
-
-            box: {
-                root: createElement("div", {
-                    class: "ponyacha_box"
-                }),
-
-                header: {
-                    root: createElement("div", {
-                        class: "ponyacha_box_header"
-                    }),
-
-                    description: {
-                        root: createElement("div", {
-                            class: "ponyacha_box_header_description"
-                        }, (el) => {
-                            el.innerText = "Выберите все изображения с ";
-                        }),
-
-                        strong: createElement("strong", {
-                            class: "ponyacha_box_header_description_strong"
-                        })
-                    },
-
-                    image: createElement("img", {
-                        class: "ponyacha_box_header_image"
-                    })
-                },
-
-                body: {
-                    root: createElement("div", {
-                        class: "ponyacha_box_body"
-                    }),
-
-                    table: {
-                        root: createElement("table", {
-                            class: "ponyacha_box_body_table"
-                        }),
-
-                        body: createElement("tbody", {
-                            class: "ponyacha_box_body_table_tbody"
-                        })
-                    },
-
-                    error: createElement("div", {
-                        class: "ponyacha_box_body_error"
-                    }, (el) => {
-                        el.innerText = "Пожалуйста, выберите хотя бы один объект, или перезагрузите, если их нет."
-                    })
-                },
-
-                footer: {
-                    root: createElement("div", {
-                        class: "ponyacha_box_footer"
-                    }),
-
-                    separator: createElement("div", {
-                        class: "ponyacha_box_footer_separator"
-                    }),
-
-                    reload: createElement("img", {
-                        class: "ponyacha_box_footer_reload",
-                        src: refresh_2x
-                    }),
-
-                    confirm: createElement("input", {
-                        class: "ponyacha_box_footer_confirm",
-                        type: "button",
-                        value: "Проверить"
-                    })
-                }
-            },
-
-            box_hide: createElement("div", {
-                class: "ponyacha_box_hide"
-            }),
-
-            label: {
-                root: createElement("label", {
-                    class: "ponyacha_label"
-                }),
-                input: createElement("input", {
-                    type: "hidden",
-                    name: "ponyacha"
-                })
-            }
-        };
-
-        this.gui.ponyacha.checkbox.root.appendChild(this.gui.ponyacha.checkbox.filter);
-        this.gui.ponyacha.checkbox.root.appendChild(this.gui.ponyacha.checkbox.logo);
-        this.gui.ponyacha.checkbox.root.appendChild(this.gui.ponyacha.checkbox.spinner);
-        this.gui.ponyacha.checkbox.root.appendChild(this.gui.ponyacha.checkbox.cheeck);
-
-        this.gui.ponyacha.checkbox.text.root.appendChild(this.gui.ponyacha.checkbox.text.pony);
-        this.gui.ponyacha.checkbox.text.root.appendChild(this.gui.ponyacha.checkbox.text.error);
-
-        this.gui.ponyacha.checkbox.root.appendChild(this.gui.ponyacha.checkbox.text.root);
-
-        this.gui.ponyacha.root.appendChild(this.gui.ponyacha.checkbox.root);
-
-        this.gui.ponyacha.logo.root.appendChild(this.gui.ponyacha.logo.icon);
-        this.gui.ponyacha.logo.root.appendChild(this.gui.ponyacha.logo.text);
-
-        this.gui.ponyacha.root.appendChild(this.gui.ponyacha.logo.root);
-
-        this.gui.ponyacha.box.header.description.root.appendChild(this.gui.ponyacha.box.header.description.strong);
-
-        this.gui.ponyacha.box.header.root.appendChild(this.gui.ponyacha.box.header.description.root);
-        this.gui.ponyacha.box.header.root.appendChild(this.gui.ponyacha.box.header.image);
-
-        this.gui.ponyacha.box.root.appendChild(this.gui.ponyacha.box.header.root);
-
-        this.gui.ponyacha.box.body.table.root.appendChild(this.gui.ponyacha.box.body.table.body);
-
-        this.gui.ponyacha.box.body.root.appendChild(this.gui.ponyacha.box.body.table.root);
-        this.gui.ponyacha.box.body.root.appendChild(this.gui.ponyacha.box.body.error);
-
-        this.gui.ponyacha.box.root.appendChild(this.gui.ponyacha.box.body.root);
-
-        this.gui.ponyacha.box.footer.root.appendChild(this.gui.ponyacha.box.footer.separator);
-        this.gui.ponyacha.box.footer.root.appendChild(this.gui.ponyacha.box.footer.reload);
-        this.gui.ponyacha.box.footer.root.appendChild(this.gui.ponyacha.box.footer.confirm);
-
-        this.gui.ponyacha.box.root.appendChild(this.gui.ponyacha.box.footer.root);
-
-        this.gui.ponyacha.root.appendChild(this.gui.ponyacha.box.root);
-
-        this.gui.ponyacha.root.appendChild(this.gui.ponyacha.box_hide);
-
-        this.gui.ponyacha.label.root.appendChild(this.gui.ponyacha.label.input);
-
-        this.gui.ponyacha.root.appendChild(this.gui.ponyacha.label.root);
-    } else {
-        alert("Не удается найти " + this.data.selector + " элемент.");
-    }
-}
-
-export function init(data) {
-    this.data = data;
-    this.root = {
-        chekList: [],
-        selectList: [],
-        openTrigger: false,
-        data: {}
-    };
-
-    window.addEventListener("ponyacha", (event) => {
-        if (event.detail.event === "open") {
-            if ((event.detail.selector === this.data.selector) || (event.detail.selector === "all")) {
-                start.call(this);
-            }
-        }
-    });
-
-    this.gui.ponyacha.root.addEventListener("contextmenu", (event) => {
-        event.preventDefault();
-
-        return false;
-    });
-
-    this.gui.ponyacha.root.addEventListener("click", (event) => {
-        if (event.target.parentElement !== this.gui.ponyacha.logo.text) {
-            start.call(this);
-        }
-    });
-
-    this.gui.ponyacha.box_hide.addEventListener("click", () => {
-        this.gui.ponyacha.box.root.style.display = "none";
-        this.gui.ponyacha.box_hide.style.display = "none";
-        this.gui.ponyacha.checkbox.spinner.style.display = "none";
-
-        if (this.gui.ponyacha.checkbox.cheeck.style.display !== "inline-block") {
-            this.gui.ponyacha.checkbox.logo.style.display = "inline-block";
-        }
-
-        setTimeout(() => {
-            this.root.openTrigger = false;
-        }, 100);
-    });
-
-    this.gui.ponyacha.box.footer.reload.addEventListener("click", () => {
-        this.root.openTrigger = false;
-
-        start.call(this);
-    });
-
-    this.gui.ponyacha.box.footer.confirm.addEventListener("click", () => {
-        if (this.root.selectList.length === 0) {
-            this.gui.ponyacha.box.body.error.style.display = "inline-block";
-        } else {
-            this.gui.ponyacha.checkbox.spinner.style.display = "none";
-
-            if (this.data.api || (JSON.stringify(this.root.chekList.sort()) === JSON.stringify(this.root.selectList.sort()))) {
-                this.gui.ponyacha.checkbox.cheeck.style.display = "inline-block";
-                this.gui.ponyacha.checkbox.text.pony.style.color = "green";
-
-                if (this.data.api) {
-                    let response = {
-                        token: this.root.data.token,
-                        selectList: this.root.selectList
-                    };
-
-                    this.gui.ponyacha.label.input.value = JSON.stringify(response);
-                } else {
-                    if (this.data.token) {
-                        this.gui.ponyacha.label.input.value = sha256(this.data.token).toString();
-                    }
-                }
-
-                this.gui.ponyacha.root.style.cursor = "default";
-                this.gui.ponyacha.root.style.pointerEvents = "none";
-
-                window.dispatchEvent(new CustomEvent("ponyacha", {
-                    detail: {
-                        status: "confirm"
-                    }
-                }));
-
-                setTimeout(() => {
-                    this.gui.ponyacha.root.remove();
-
-                    gui.call(this, this.data);
-                    init.call(this, this.data);
-                }, 60000);
-            } else {
-                this.gui.ponyacha.checkbox.text.pony.style.display = "none";
-                this.gui.ponyacha.checkbox.cheeck.style.display = "none";
-
-                this.gui.ponyacha.checkbox.logo.style.display = "inline-block";
-                this.gui.ponyacha.checkbox.filter.style.display = "inline-block";
-                this.gui.ponyacha.checkbox.text.error.style.display = "inline-block";
-
-                window.dispatchEvent(new CustomEvent("ponyacha", {
-                    detail: {
-                        status: "error"
-                    }
-                }));
-            }
-
-            setTimeout(() => {
-                this.gui.ponyacha.box.root.style.display = "none";
-                this.gui.ponyacha.box_hide.style.display = "none";
-
-                this.root.openTrigger = false;
-            }, 100);
-        }
-    });
-}
-
-export function start() {
-    let scrollWidth = Math.max(document.body.scrollWidth, document.documentElement.scrollWidth, document.body.offsetWidth, document.documentElement.offsetWidth, document.body.clientWidth, document.documentElement.clientWidth);
-
-    if (!this.root.openTrigger) {
-        let randPony = ALL_PONY[Math.floor(Math.random() * (ALL_PONY.length - 1))];
-
-        this.root.openTrigger = true;
-
-        this.gui.ponyacha.checkbox.filter.style.display = "none";
-        this.gui.ponyacha.checkbox.text.error.style.display = "none";
-        this.gui.ponyacha.checkbox.logo.style.display = "none";
-        this.gui.ponyacha.box.body.error.style.display = "none";
-
-        this.gui.ponyacha.checkbox.text.pony.style.display = "inline-block";
-        this.gui.ponyacha.checkbox.spinner.style.display = "inline-block";
-
-        if (this.data.api) {
-            loadApi.call(this);
-
-            randPony = this.root.data;
-        }
-
-        this.gui.ponyacha.box.root.style.display = "block";
-        this.gui.ponyacha.box_hide.style.display = "block";
-
-        this.gui.ponyacha.box.header.root.style.backgroundColor = randPony.color;
-        this.gui.ponyacha.box.header.description.strong.innerText = randPony.name;
-        this.gui.ponyacha.box.header.image.src = randPony.image;
-        this.gui.ponyacha.box.footer.confirm.style.background = randPony.color;
-
-        this.gui.ponyacha.box.body.table.body.innerHTML = "";
-
-        this.root.chekList = [];
-        this.root.selectList = [];
-
-        for (let i = 1; i <= 3; i++) {
+        for (let name in params) {
             try {
-                let tr = createElement("tr", {
-                    class: "ponyacha_box_body_table_tr"
-                }, (el) => {
-                    for (let ii = 1; ii <= 3; ii++) {
-                        try {
-                            let td = createElement("td", {
-                                class: "ponyacha_box_body_table_td"
-                            }, (el) => {
-                                let randCat = ALL_PONY[Math.floor(Math.random() * ALL_PONY.length)];
-                                let randImage = randCat.images[Math.floor(Math.random() * randCat.images.length)];
-
-                                if (this.data.api) {
-                                    randImage = this.root.data.images[(i * ii) - 1];
-                                }
-
-                                if (randCat.name === randPony.name) {
-                                    this.root.chekList.push(randImage);
-                                }
-
-                                let checkbox = createElement("img", {
-                                    class: ("ponyacha_box_body_table_tbody_td_checkbox_" + ii),
-                                    src: checkmark_blue
-                                });
-
-                                let image = createElement("img", {
-                                    class: "ponyacha_box_body_table_tbody_td_image",
-                                    src: randImage
-                                }, (el) => {
-                                    el.addEventListener("click", () => {
-                                        if (el.style.transform !== "scale(0.8)") {
-                                            el.style.transform = "scale(0.8)";
-
-                                            checkbox.style.display = "inline-block";
-
-                                            this.root.selectList.push(randImage);
-                                        } else {
-                                            el.style.transform = "scale(1)";
-
-                                            checkbox.style.display = "none";
-
-                                            let pos = this.root.selectList.indexOf(randImage);
-                                            this.root.selectList.splice(pos, 1);
-                                        }
-                                    });
-                                });
-
-                                el.appendChild(checkbox);
-                                el.appendChild(image);
-                            });
-
-                            el.appendChild(td);
-                        } catch (e) {
-                            console.log(e);
-                        }
-                    }
-                });
-
-                this.gui.ponyacha.box.body.table.body.appendChild(tr);
+                el.setAttribute(name, params[name]);
             } catch (e) {
                 console.log(e);
             }
         }
 
-        if ((this.gui.ponyacha.root.getBoundingClientRect().top + window.scrollY) > this.gui.ponyacha.box.root.offsetHeight) {
-            this.gui.ponyacha.box.root.style.top = (((this.gui.ponyacha.root.getBoundingClientRect().top + window.scrollY) - this.gui.ponyacha.box.root.offsetHeight + 38).toString() + "px");
-        } else {
-            this.gui.ponyacha.box.root.style.top = "0px";
-        }
+        actions(el);
 
-        if ((scrollWidth - (this.gui.ponyacha.root.getBoundingClientRect().left + window.scrollX)) > this.gui.ponyacha.box.root.offsetWidth) {
-            this.gui.ponyacha.box.root.style.left = (((this.gui.ponyacha.root.getBoundingClientRect().left + window.scrollX) + 29).toString() + "px");
+        return el;
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+export function gui(data) {
+    try {
+        this.data = data;
+        this.gui = {};
+
+        if ((this.gui.root = document.querySelector(this.data.selector))) {
+            this.gui.ponyacha = {
+                root: createElement("div", {
+                    class: "ponyacha"
+                }, (el) => {
+                    this.gui.root.appendChild(el);
+                }),
+
+                checkbox: {
+                    root: createElement("div", {
+                        class: "ponyacha_checkbox"
+                    }),
+
+                    filter: createElement("span", {
+                        class: "ponyacha_checkbox_filter"
+                    }),
+
+                    logo: createElement("img", {
+                        class: "ponyacha_checkbox_logo",
+                        src: checkbox
+                    }),
+
+                    spinner: createElement("img", {
+                        class: "ponyacha_checkbox_spinner",
+                        src: spinner
+                    }),
+
+                    cheeck: createElement("img", {
+                        class: "ponyacha_checkbox_check",
+                        src: checkmark
+                    }),
+
+                    text: {
+                        root: createElement("div", {
+                            class: "ponyacha_checkbox_text"
+                        }),
+
+                        pony: createElement("div", {
+                            class: "ponyacha_checkbox_text_pony"
+                        }, (el) => {
+                            el.innerText = "Я поняшка";
+                        }),
+
+                        error: createElement("div", {
+                            class: "ponyacha_checkbox_text_error"
+                        }, (el) => {
+                            el.innerText = "Проверка не пройдена!";
+                        })
+                    }
+                },
+
+                logo: {
+                    root: createElement("div", {
+                        class: "ponyacha_logo"
+                    }),
+
+                    icon: createElement("img", {
+                        class: "ponyacha_logo_icon",
+                        src: roku_chan
+                    }),
+
+                    text: createElement("div", {
+                        class: "ponyacha_logo_text"
+                    }, (el) => {
+                        el.appendChild(createElement("a", {
+                            class: "ponyacha_logo_text",
+                            href: "https://github.com/JackieWaltRyan/ponyacha",
+                            target: "_blank"
+                        }, (el) => {
+                            el.innerText = "poNYACHA";
+                        }));
+                    })
+                },
+
+                box: {
+                    root: createElement("div", {
+                        class: "ponyacha_box"
+                    }),
+
+                    header: {
+                        root: createElement("div", {
+                            class: "ponyacha_box_header"
+                        }),
+
+                        description: {
+                            root: createElement("div", {
+                                class: "ponyacha_box_header_description"
+                            }, (el) => {
+                                el.innerText = "Выберите все изображения с ";
+                            }),
+
+                            strong: createElement("strong", {
+                                class: "ponyacha_box_header_description_strong"
+                            })
+                        },
+
+                        image: createElement("img", {
+                            class: "ponyacha_box_header_image"
+                        })
+                    },
+
+                    body: {
+                        root: createElement("div", {
+                            class: "ponyacha_box_body"
+                        }),
+
+                        table: {
+                            root: createElement("table", {
+                                class: "ponyacha_box_body_table"
+                            }),
+
+                            body: createElement("tbody", {
+                                class: "ponyacha_box_body_table_tbody"
+                            })
+                        },
+
+                        error: createElement("div", {
+                            class: "ponyacha_box_body_error"
+                        }, (el) => {
+                            el.innerText = "Пожалуйста, выберите хотя бы один объект, или перезагрузите, если их нет."
+                        })
+                    },
+
+                    footer: {
+                        root: createElement("div", {
+                            class: "ponyacha_box_footer"
+                        }),
+
+                        separator: createElement("div", {
+                            class: "ponyacha_box_footer_separator"
+                        }),
+
+                        reload: createElement("img", {
+                            class: "ponyacha_box_footer_reload",
+                            src: refresh_2x
+                        }),
+
+                        confirm: createElement("input", {
+                            class: "ponyacha_box_footer_confirm",
+                            type: "button",
+                            value: "Проверить"
+                        })
+                    }
+                },
+
+                box_hide: createElement("div", {
+                    class: "ponyacha_box_hide"
+                }),
+
+                label: {
+                    root: createElement("label", {
+                        class: "ponyacha_label"
+                    }),
+                    input: createElement("input", {
+                        type: "hidden",
+                        name: "ponyacha"
+                    })
+                }
+            };
+
+            this.gui.ponyacha.checkbox.root.appendChild(this.gui.ponyacha.checkbox.filter);
+            this.gui.ponyacha.checkbox.root.appendChild(this.gui.ponyacha.checkbox.logo);
+            this.gui.ponyacha.checkbox.root.appendChild(this.gui.ponyacha.checkbox.spinner);
+            this.gui.ponyacha.checkbox.root.appendChild(this.gui.ponyacha.checkbox.cheeck);
+
+            this.gui.ponyacha.checkbox.text.root.appendChild(this.gui.ponyacha.checkbox.text.pony);
+            this.gui.ponyacha.checkbox.text.root.appendChild(this.gui.ponyacha.checkbox.text.error);
+
+            this.gui.ponyacha.checkbox.root.appendChild(this.gui.ponyacha.checkbox.text.root);
+
+            this.gui.ponyacha.root.appendChild(this.gui.ponyacha.checkbox.root);
+
+            this.gui.ponyacha.logo.root.appendChild(this.gui.ponyacha.logo.icon);
+            this.gui.ponyacha.logo.root.appendChild(this.gui.ponyacha.logo.text);
+
+            this.gui.ponyacha.root.appendChild(this.gui.ponyacha.logo.root);
+
+            this.gui.ponyacha.box.header.description.root.appendChild(this.gui.ponyacha.box.header.description.strong);
+
+            this.gui.ponyacha.box.header.root.appendChild(this.gui.ponyacha.box.header.description.root);
+            this.gui.ponyacha.box.header.root.appendChild(this.gui.ponyacha.box.header.image);
+
+            this.gui.ponyacha.box.root.appendChild(this.gui.ponyacha.box.header.root);
+
+            this.gui.ponyacha.box.body.table.root.appendChild(this.gui.ponyacha.box.body.table.body);
+
+            this.gui.ponyacha.box.body.root.appendChild(this.gui.ponyacha.box.body.table.root);
+            this.gui.ponyacha.box.body.root.appendChild(this.gui.ponyacha.box.body.error);
+
+            this.gui.ponyacha.box.root.appendChild(this.gui.ponyacha.box.body.root);
+
+            this.gui.ponyacha.box.footer.root.appendChild(this.gui.ponyacha.box.footer.separator);
+            this.gui.ponyacha.box.footer.root.appendChild(this.gui.ponyacha.box.footer.reload);
+            this.gui.ponyacha.box.footer.root.appendChild(this.gui.ponyacha.box.footer.confirm);
+
+            this.gui.ponyacha.box.root.appendChild(this.gui.ponyacha.box.footer.root);
+
+            this.gui.ponyacha.root.appendChild(this.gui.ponyacha.box.root);
+
+            this.gui.ponyacha.root.appendChild(this.gui.ponyacha.box_hide);
+
+            this.gui.ponyacha.label.root.appendChild(this.gui.ponyacha.label.input);
+
+            this.gui.ponyacha.root.appendChild(this.gui.ponyacha.label.root);
         } else {
-            this.gui.ponyacha.box.root.style.left = ((scrollWidth - this.gui.ponyacha.box.root.offsetWidth - 1).toString() + "px");
+            alert("Не удается найти " + this.data.selector + " элемент.");
         }
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+export function init(data) {
+    try {
+        this.data = data;
+        this.root = {
+            chekList: [],
+            selectList: [],
+            openTrigger: false,
+            data: {}
+        };
+
+        window.addEventListener("ponyacha", (event) => {
+            if (event.detail.event === "open") {
+                if ((event.detail.selector === this.data.selector) || (event.detail.selector === "all")) {
+                    start.call(this);
+                }
+            }
+        });
+
+        this.gui.ponyacha.root.addEventListener("contextmenu", (event) => {
+            event.preventDefault();
+
+            return false;
+        });
+
+        this.gui.ponyacha.root.addEventListener("click", (event) => {
+            if (event.target.parentElement !== this.gui.ponyacha.logo.text) {
+                start.call(this);
+            }
+        });
+
+        this.gui.ponyacha.box_hide.addEventListener("click", () => {
+            this.gui.ponyacha.box.root.style.display = "none";
+            this.gui.ponyacha.box_hide.style.display = "none";
+            this.gui.ponyacha.checkbox.spinner.style.display = "none";
+
+            if (this.gui.ponyacha.checkbox.cheeck.style.display !== "inline-block") {
+                this.gui.ponyacha.checkbox.logo.style.display = "inline-block";
+            }
+
+            setTimeout(() => {
+                this.root.openTrigger = false;
+            }, 100);
+        });
+
+        this.gui.ponyacha.box.footer.reload.addEventListener("click", () => {
+            this.root.openTrigger = false;
+
+            start.call(this);
+        });
+
+        this.gui.ponyacha.box.footer.confirm.addEventListener("click", () => {
+            if (this.root.selectList.length === 0) {
+                this.gui.ponyacha.box.body.error.style.display = "inline-block";
+            } else {
+                this.gui.ponyacha.checkbox.spinner.style.display = "none";
+
+                if (this.data.api || (JSON.stringify(this.root.chekList.sort()) === JSON.stringify(this.root.selectList.sort()))) {
+                    this.gui.ponyacha.checkbox.cheeck.style.display = "inline-block";
+                    this.gui.ponyacha.checkbox.text.pony.style.color = "green";
+
+                    if (this.data.api) {
+                        let response = {
+                            token: this.root.data.token,
+                            selectList: this.root.selectList
+                        };
+
+                        this.gui.ponyacha.label.input.value = JSON.stringify(response);
+                    } else {
+                        if (this.data.token) {
+                            this.gui.ponyacha.label.input.value = sha256(this.data.token).toString();
+                        }
+                    }
+
+                    this.gui.ponyacha.root.style.cursor = "default";
+                    this.gui.ponyacha.root.style.pointerEvents = "none";
+
+                    window.dispatchEvent(new CustomEvent("ponyacha", {
+                        detail: {
+                            status: "confirm"
+                        }
+                    }));
+
+                    setTimeout(() => {
+                        this.gui.ponyacha.root.remove();
+
+                        gui.call(this, this.data);
+                        init.call(this, this.data);
+                    }, 60000);
+                } else {
+                    this.gui.ponyacha.checkbox.text.pony.style.display = "none";
+                    this.gui.ponyacha.checkbox.cheeck.style.display = "none";
+
+                    this.gui.ponyacha.checkbox.logo.style.display = "inline-block";
+                    this.gui.ponyacha.checkbox.filter.style.display = "inline-block";
+                    this.gui.ponyacha.checkbox.text.error.style.display = "inline-block";
+
+                    window.dispatchEvent(new CustomEvent("ponyacha", {
+                        detail: {
+                            status: "error"
+                        }
+                    }));
+                }
+
+                setTimeout(() => {
+                    this.gui.ponyacha.box.root.style.display = "none";
+                    this.gui.ponyacha.box_hide.style.display = "none";
+
+                    this.root.openTrigger = false;
+                }, 100);
+            }
+        });
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+export function start() {
+    try {
+        let scrollWidth = Math.max(document.body.scrollWidth, document.documentElement.scrollWidth, document.body.offsetWidth, document.documentElement.offsetWidth, document.body.clientWidth, document.documentElement.clientWidth);
+
+        if (!this.root.openTrigger) {
+            let randPony = ALL_PONY[Math.floor(Math.random() * (ALL_PONY.length - 1))];
+
+            this.root.openTrigger = true;
+
+            this.gui.ponyacha.checkbox.filter.style.display = "none";
+            this.gui.ponyacha.checkbox.text.error.style.display = "none";
+            this.gui.ponyacha.checkbox.logo.style.display = "none";
+            this.gui.ponyacha.box.body.error.style.display = "none";
+
+            this.gui.ponyacha.checkbox.text.pony.style.display = "inline-block";
+            this.gui.ponyacha.checkbox.spinner.style.display = "inline-block";
+
+            if (this.data.api) {
+                loadApi.call(this);
+
+                randPony = this.root.data;
+            }
+
+            this.gui.ponyacha.box.root.style.display = "block";
+            this.gui.ponyacha.box_hide.style.display = "block";
+
+            this.gui.ponyacha.box.header.root.style.backgroundColor = randPony.color;
+            this.gui.ponyacha.box.header.description.strong.innerText = randPony.name;
+            this.gui.ponyacha.box.header.image.src = randPony.image;
+            this.gui.ponyacha.box.footer.confirm.style.background = randPony.color;
+
+            this.gui.ponyacha.box.body.table.body.innerHTML = "";
+
+            this.root.chekList = [];
+            this.root.selectList = [];
+
+            for (let i = 1; i <= 3; i++) {
+                try {
+                    let tr = createElement("tr", {
+                        class: "ponyacha_box_body_table_tr"
+                    }, (el) => {
+                        for (let ii = 1; ii <= 3; ii++) {
+                            try {
+                                let td = createElement("td", {
+                                    class: "ponyacha_box_body_table_td"
+                                }, (el) => {
+                                    let randCat = ALL_PONY[Math.floor(Math.random() * ALL_PONY.length)];
+                                    let randImage = randCat.images[Math.floor(Math.random() * randCat.images.length)];
+
+                                    if (this.data.api) {
+                                        randImage = this.root.data.images[(i * ii) - 1];
+                                    }
+
+                                    if (randCat.name === randPony.name) {
+                                        this.root.chekList.push(randImage);
+                                    }
+
+                                    let checkbox = createElement("img", {
+                                        class: ("ponyacha_box_body_table_tbody_td_checkbox_" + ii),
+                                        src: checkmark_blue
+                                    });
+
+                                    let image = createElement("img", {
+                                        class: "ponyacha_box_body_table_tbody_td_image",
+                                        src: randImage
+                                    }, (el) => {
+                                        el.addEventListener("click", () => {
+                                            if (el.style.transform !== "scale(0.8)") {
+                                                el.style.transform = "scale(0.8)";
+
+                                                checkbox.style.display = "inline-block";
+
+                                                this.root.selectList.push(randImage);
+                                            } else {
+                                                el.style.transform = "scale(1)";
+
+                                                checkbox.style.display = "none";
+
+                                                let pos = this.root.selectList.indexOf(randImage);
+                                                this.root.selectList.splice(pos, 1);
+                                            }
+                                        });
+                                    });
+
+                                    el.appendChild(checkbox);
+                                    el.appendChild(image);
+                                });
+
+                                el.appendChild(td);
+                            } catch (e) {
+                                console.log(e);
+                            }
+                        }
+                    });
+
+                    this.gui.ponyacha.box.body.table.body.appendChild(tr);
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+
+            if ((this.gui.ponyacha.root.getBoundingClientRect().top + window.scrollY) > this.gui.ponyacha.box.root.offsetHeight) {
+                this.gui.ponyacha.box.root.style.top = (((this.gui.ponyacha.root.getBoundingClientRect().top + window.scrollY) - this.gui.ponyacha.box.root.offsetHeight + 38).toString() + "px");
+            } else {
+                this.gui.ponyacha.box.root.style.top = "0px";
+            }
+
+            if ((scrollWidth - (this.gui.ponyacha.root.getBoundingClientRect().left + window.scrollX)) > this.gui.ponyacha.box.root.offsetWidth) {
+                this.gui.ponyacha.box.root.style.left = (((this.gui.ponyacha.root.getBoundingClientRect().left + window.scrollX) + 29).toString() + "px");
+            } else {
+                this.gui.ponyacha.box.root.style.left = ((scrollWidth - this.gui.ponyacha.box.root.offsetWidth - 1).toString() + "px");
+            }
+        }
+    } catch (e) {
+        console.error(e);
     }
 }
 
 export function loadApi() {
-    let xhr = new XMLHttpRequest();
+    try {
+        let xhr = new XMLHttpRequest();
 
-    xhr.open("GET", this.data.api, false);
+        xhr.open("GET", this.data.api, false);
 
-    xhr.addEventListener("load", () => {
-        if (xhr.status === 200) {
-            this.root.data = JSON.parse(xhr.responseText);
-        } else {
+        xhr.addEventListener("load", () => {
+            if (xhr.status === 200) {
+                this.root.data = JSON.parse(xhr.responseText);
+            } else {
+                setTimeout(() => {
+                    loadApi.call(this);
+                }, 1000);
+            }
+        });
+
+        xhr.addEventListener("error", () => {
             setTimeout(() => {
                 loadApi.call(this);
             }, 1000);
-        }
-    });
+        });
 
-    xhr.addEventListener("error", () => {
-        setTimeout(() => {
-            loadApi.call(this);
-        }, 1000);
-    });
-
-    xhr.send();
+        xhr.send();
+    } catch (e) {
+        console.error(e);
+    }
 }
